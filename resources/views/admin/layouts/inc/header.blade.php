@@ -3423,11 +3423,11 @@
                                 <!--begin::Username-->
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold d-flex align-items-center fs-5">
-                                        Max Smith                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                                        {{ auth()->user()->name }}                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
                                     </div>
 
                                     <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
-                                        max@kt.com                </a>
+                                        {{ auth()->user()->email }}                </a>
                                 </div>
                                 <!--end::Username-->
                             </div>
@@ -3618,9 +3618,16 @@
 
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="authentication/layouts/corporate/sign-in.html" class="menu-link px-5">
-                                Sign Out
+                            <a href="{{ route('logout') }}" class="menu-link px-5"
+                               onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
                             </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+
                         </div>
                         <!--end::Menu item-->
                     </div>
