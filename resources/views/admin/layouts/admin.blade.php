@@ -60,11 +60,20 @@
 
                             <!--begin::Page title-->
                             <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3 ">
-                                <!--begin::Title-->
-                                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                                    Multipurpose
-                                </h1>
-                                <!--end::Title-->
+                                @if(session('message'))
+                                    <!--begin::Title-->
+                                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                                        {{ session('message') }}
+                                    </h1>
+                                    <!--end::Title-->
+                                @else
+                                    <!--begin::Title-->
+                                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                                        Dashboard
+                                    </h1>
+                                    <!--end::Title-->
+                                @endif
+
 
                                 @include('admin.layouts.inc.breadcrumb')
                             </div>
