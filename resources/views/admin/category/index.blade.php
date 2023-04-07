@@ -53,66 +53,70 @@
                         </div>
                     </th>
                     <th class="min-w-250px">Category</th>
-                    <th class="min-w-150px">Category Type</th>
+                    <th class="min-w-150px">Slug</th>
                     <th class="min-w-70px">Actions</th>
                 </tr>
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
-                <tr>
-                    <td>
-                        <div class="form-check form-check-sm form-check-custom form-check-solid">
-                            <input class="form-check-input" type="checkbox" value="1" />
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex">
-                            <!--begin::Thumbnail-->
-                            <a href="edit-category.html" class="symbol symbol-50px">
-                                <span class="symbol-label" style="background-image:url(../../../assets/media/stock/ecommerce/68.gif);"></span>
-                            </a>
-                            <!--end::Thumbnail-->
 
-                            <div class="ms-5">
-                                <!--begin::Title-->
-                                <a href="edit-category.html" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1" data-kt-ecommerce-category-filter="category_name">Computers</a>
-                                <!--end::Title-->
+                    @foreach($categories as $category)
+                        <tr>
+                            <td>
+                                <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                    <input class="form-check-input" type="checkbox" value="1" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex">
+                                    <!--begin::Thumbnail-->
+                                    <a href="edit-category.html" class="symbol symbol-50px">
+                                        <span class="symbol-label" style="background-image:url({{ asset('storage/uploads/category/'. $category->image) }});"></span>
+                                    </a>
+                                    <!--end::Thumbnail-->
 
-                                <!--begin::Description-->
-                                <div class="text-muted fs-7 fw-bold">Our computers and tablets include all the big brands.</div>
-                                <!--end::Description-->
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <!--begin::Badges-->
-                        <div class="badge badge-light-success">Automated</div>
-                        <!--end::Badges-->
-                    </td>
-                    <td class="text-end">
-                        <a href="#" class="btn btn-sm btn-light btn-active-light-primary btn-flex btn-center" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                            Actions
-                            <i class="ki-duotone ki-down fs-5 ms-1"></i>                    </a>
-                        <!--begin::Menu-->
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="add-category.html" class="menu-link px-3">
-                                    Edit
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
+                                    <div class="ms-5">
+                                        <!--begin::Title-->
+                                        <a href="edit-category.html" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1" data-kt-ecommerce-category-filter="category_name">{{ $category->name }}</a>
+                                        <!--end::Title-->
 
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-kt-ecommerce-category-filter="delete_row">
-                                    Delete
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
-                        </div>
-                        <!--end::Menu-->
-                    </td>
-                </tr>
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7 fw-bold">{{ $category->description }}</div>
+                                        <!--end::Description-->
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <!--begin::Badges-->
+                                <div class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $category->slug }}</div>
+                                <!--end::Badges-->
+                            </td>
+                            <td class="text-end">
+                                <a href="#" class="btn btn-sm btn-light btn-active-light-primary btn-flex btn-center" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                    Actions
+                                    <i class="ki-duotone ki-down fs-5 ms-1"></i>                    </a>
+                                <!--begin::Menu-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <a href="add-category.html" class="menu-link px-3">
+                                            Edit
+                                        </a>
+                                    </div>
+                                    <!--end::Menu item-->
+
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3" data-kt-ecommerce-category-filter="delete_row">
+                                            Delete
+                                        </a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                </div>
+                                <!--end::Menu-->
+                            </td>
+                        </tr>
+                    @endforeach
+
                 </tbody>
                 <!--end::Table body-->
             </table>
