@@ -3,7 +3,7 @@
 <!--begin::Head-->
 
 <head>
-    <title></title>
+    <title>@yield('title')</title>
     <meta charset="utf-8"/>
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
@@ -13,11 +13,12 @@
     {{--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>--}}
     <!--end::Fonts-->
 
-
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="{{ asset('admin/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('admin/css/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <!--end::Global Stylesheets Bundle-->
+
+    @yield('css_styles')
 
     @livewireStyles
 </head>
@@ -57,27 +58,7 @@
                         <!--begin::Toolbar container-->
                         <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex flex-stack ">
 
-
-                            <!--begin::Page title-->
-                            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3 ">
-                                @if(session('message'))
-                                    <!--begin::Title-->
-                                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                                        {{ session('message') }}
-                                    </h1>
-                                    <!--end::Title-->
-                                @else
-                                    <!--begin::Title-->
-                                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                                        Dashboard
-                                    </h1>
-                                    <!--end::Title-->
-                                @endif
-
-
-                                @include('admin.layouts.inc.breadcrumb')
-                            </div>
-                            <!--end::Page title-->
+                            @yield('breadcrumb')
 
                         </div>
                         <!--end::Toolbar container-->
@@ -105,6 +86,7 @@
 <script src="{{ asset('admin/js/scripts.bundle.js') }}"></script>
 <!--end::Global Javascript Bundle-->
 
+@yield('js_scripts')
 
 @livewireScripts
 </body>
