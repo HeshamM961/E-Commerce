@@ -76,7 +76,7 @@
                                 <span class="path6"></span>
                             </i>
                         </span>
-                        <span class="menu-title">Calendar</span>
+                        <span class="menu-title">{{ __('admin.category.categories') }}</span>
                     </a>
                     <!--end:Menu link-->
                 </div>

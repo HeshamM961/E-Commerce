@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('title')
-    Create Category
+    @lang('admin.category.create_category')
 @endsection
 
 @section('css_styles')
@@ -11,7 +11,7 @@
 @endsection
 
 @section('breadcrumb')
-    @include('admin.layouts.inc.breadcrumb', ['page_title' => 'Create Category','items' => ['category' => route('admin.category.index'), 'Create Category' => '']])
+    @include('admin.layouts.inc.breadcrumb', ['page_title' => __('admin.category.create_category'),'items' => [__('admin.category.categories') => route('admin.category.index'), __('admin.category.create_category') => '']])
 @endsection
 
 @section('content')

@@ -11,7 +11,7 @@
         <!--begin::Item-->
         <li class="breadcrumb-item text-muted">
             <a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">
-                Dashboard
+                {{ __('admin.dashboard') }}
             </a>
         </li>
         <!--end::Item-->
