@@ -11,19 +11,20 @@
 @endsection
 
 @section('breadcrumb')
-    @include('admin.layouts.inc.breadcrumb', ['page_title' => __('admin.category.create_category'),'items' => [__('admin.category.categories') => route('admin.category.index'), __('admin.category.create_category') => '']])
+    @include('admin.layouts.inc.breadcrumb', ['page_title' => __('admin.category.edit_category'),'items' => [__('admin.category.categories') => route('admin.category.index'), __('admin.category.edit_category') => '']])
 @endsection
 
 @section('content')
 
-        <div id="category_form_errors" class="alert alert-danger d-none">
-            <ul id="category_errors">
+    <div id="category_form_errors" class="alert alert-danger d-none">
+        <ul id="category_errors">
+        </ul>
+    </div>
 
-            </ul>
-        </div>
-
-    <form id="category_form" class="form d-flex flex-column flex-lg-row" enctype="multipart/form-data">
+    <form id="category_form" action="{{ route('admin.category.update', $category->id) }}" method="post" class="form d-flex flex-column flex-lg-row" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
+
         <!--begin::Aside column-->
         <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
             <!--begin::Thumbnail settings-->
@@ -32,7 +33,7 @@
                 <div class="card-header">
                     <!--begin::Card title-->
                     <div class="card-title">
-                        <h2>Thumbnail</h2>
+                        <h2>{{ __('admin.category.thumbnail') }}</h2>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -46,7 +47,7 @@
                     <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
 
                         <label class="label" data-toggle="tooltip" title="Change your avatar">
-                            <img class="rounded w-150px h-150px" id="avatar" src="{{ asset('admin/media/svg/files/blank-image.svg') }}" alt="avatar">
+                            <img class="rounded w-150px h-150px" id="avatar" src="{{ asset('storage/uploads/category/'. $category->image) }}" alt="avatar">
                             <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                         </label>
 
@@ -95,7 +96,7 @@
                     <!--end::Image input-->
 
                     <!--begin::Description-->
-                    <div class="text-muted fs-7">Set the category thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                    <div class="text-muted fs-7">{{ __('admin.category.image_desc') }}</div>
                     <!--end::Description-->
                 </div>
                 <!--end::Card body-->
@@ -107,7 +108,7 @@
                 <div class="card-header">
                     <!--begin::Card title-->
                     <div class="card-title">
-                        <h2>Status</h2>
+                        <h2>{{ __('admin.category.status') }}</h2>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -118,19 +119,19 @@
                     <!--begin::Select2-->
                     <select class="form-select mb-2" name="status" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_category_status_select">
                         <option></option>
-                        <option value="1" selected>{{ __('admin.online') }}</option>
-                        <option value="0">{{ __('admin.offline') }}</option>
+                        <option value="1" {{ $category->status == 1 ? 'selected' : '' }}>{{ __('admin.online') }}</option>
+                        <option value="0" {{ $category->status == 0 ? 'selected' : '' }}>{{ __('admin.offline') }}</option>
                     </select>
                     <!--end::Select2-->
 
                     <!--begin::Description-->
-                    <div class="text-muted fs-7">Set the category status.</div>
+                    <div class="text-muted fs-7">{{ __('admin.category.status_desc') }}</div>
                     <!--end::Description-->
                 </div>
                 <!--end::Card body-->
             </div>
         </div>
-            <!--end::Status-->
+        <!--end::Status-->
         <!--end::Aside column-->
 
         <!--begin::Main column-->
@@ -154,7 +155,7 @@
                         <!--end::Label-->
 
                         <!--begin::Input-->
-                        <input type="text" name="name" class="form-control mb-2" placeholder="Category Name" value="" />
+                        <input type="text" name="name" class="form-control mb-2" placeholder="Category Name" value="{{ $category->name }}" />
                         <!--end::Input-->
 
                         <!--begin::Description-->
@@ -170,7 +171,7 @@
                         <!--end::Label-->
 
                         <!--begin::Input-->
-                        <input type="text" name="slug" class="form-control mb-2" placeholder="Category Slug" value="" />
+                        <input type="text" name="slug" class="form-control mb-2" placeholder="Category Slug" value="{{ $category->slug }}" />
                         <!--end::Input-->
                         <small id="slug_error" class="text-danger"></small>
 
@@ -187,7 +188,7 @@
                         <!--end::Label-->
 
                         <!--begin::Editor-->
-                        <textarea name="description" id="description" cols="15" class="form-control mb-2" rows="5"></textarea>
+                        <textarea name="description" id="description" cols="15" class="form-control mb-2" rows="5">{{ $category->description }}</textarea>
                         <!--end::Editor-->
 
                         <!--begin::Description-->
@@ -218,7 +219,7 @@
                         <!--end::Label-->
 
                         <!--begin::Input-->
-                        <input type="text" class="form-control mb-2" name="meta_title" placeholder="Meta tag name" />
+                        <input type="text" class="form-control mb-2" name="meta_title" placeholder="Meta tag name" value="{{ $category->meta_title }}" />
                         <!--end::Input-->
 
                         <!--begin::Description-->
@@ -234,7 +235,7 @@
                         <!--end::Label-->
 
                         <!--begin::Editor-->
-                        <textarea name="meta_description" id="meta_description" cols="15" class="form-control mb-2" rows="5"></textarea>
+                        <textarea name="meta_description" id="meta_description" cols="15" class="form-control mb-2" rows="5">{{ $category->meta_description }}</textarea>
                         <!--end::Editor-->
 
                         <!--begin::Description-->
@@ -250,7 +251,7 @@
                         <!--end::Label-->
 
                         <!--begin::Editor-->
-                        <input id="kt_ecommerce_add_category_meta_keywords" name="meta_keyword" class="form-control mb-2" />
+                        <input id="kt_ecommerce_add_category_meta_keywords" name="meta_keyword" class="form-control mb-2" value="{{ $category->meta_keyword }}" />
                         <!--end::Editor-->
 
                         <!--begin::Description-->
@@ -339,40 +340,40 @@
             $('[data-toggle="tooltip"]').tooltip();
 
             input.addEventListener('change', function (e) {
-                    var files = e.target.files;
-                    var done = function (url) {
-                        input.value = '';
-                        image.src = url;
-                        $modal.modal('show');
-                    };
-                    var reader;
-                    var file;
-                    var url;
+                var files = e.target.files;
+                var done = function (url) {
+                    input.value = '';
+                    image.src = url;
+                    $modal.modal('show');
+                };
+                var reader;
+                var file;
+                var url;
 
-                    if (files && files.length > 0) {
-                        file = files[0];
+                if (files && files.length > 0) {
+                    file = files[0];
 
-                        if (URL) {
-                            done(URL.createObjectURL(file));
-                        } else if (FileReader) {
-                            reader = new FileReader();
-                            reader.onload = function (e) {
-                                done(reader.result);
-                            };
-                            reader.readAsDataURL(file);
-                        }
+                    if (URL) {
+                        done(URL.createObjectURL(file));
+                    } else if (FileReader) {
+                        reader = new FileReader();
+                        reader.onload = function (e) {
+                            done(reader.result);
+                        };
+                        reader.readAsDataURL(file);
                     }
-                });
+                }
+            });
 
-                $modal.on('shown.bs.modal', function () {
-                    cropper = new Cropper(image, {
-                        aspectRatio: 1,
-                        viewMode: 3,
-                    });
-                }).on('hidden.bs.modal', function () {
-                    cropper.destroy();
-                    cropper = null;
+            $modal.on('shown.bs.modal', function () {
+                cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 3,
                 });
+            }).on('hidden.bs.modal', function () {
+                cropper.destroy();
+                cropper = null;
+            });
 
             document.getElementById('crop').addEventListener('click', function () {
                 var canvas;
@@ -392,12 +393,11 @@
             e.preventDefault();
             var form = this;
             $.ajax({
-                url: '/admin/category/store',
+                url: '/admin/category/' + {{ $category->id }},
                 method: 'POST',
                 data: $(form).serialize(),
                 datatype: 'json',
                 success: function (data){
-                    console.log(data);
                     if (data.success){
                         Swal.fire({
                             title: 'Success!',

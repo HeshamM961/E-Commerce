@@ -30,6 +30,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(f
         Route::get('category/create', 'create')->name('category.create');
         Route::post('category/store', 'store')->name('category.store');
         Route::get('category/{category}/edit', 'edit')->name('category.edit');
+        Route::put('category/{category}', 'update')->name('category.update');
+        Route::delete('category/{category}', 'destroy')->name('category.delete');
     });
 
 });
